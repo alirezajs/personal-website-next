@@ -27,8 +27,12 @@ export default function About() {
         <a className="text-blue-500" href="https://www.linkedin.com/in/alireza-varmaghani/">
           LinkedIn
         </a>
+        . I also write on{" "}
+        <a className="text-blue-500" href="https://medium.com/@alireza.varmaghani">
+          Medium
+        </a>
         .
-      </p>{" "}
+      </p>
     </main>
   );
 }
