@@ -23,14 +23,19 @@ export default function Home() {
       {LATEST.length > 0 && (
         <section className="mb-10">
           <h2 className="text-2xl font-semibold mb-4">Latest Projects</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid space-y-3 gap-4">
             {LATEST.map((p) => (
               <article key={p.id} className="p-3 border rounded-lg">
-                <h3 className="font-medium mb-1">{p.title}</h3>
-                <p className="text-sm text-gray-600">{p.description}</p>
-                <a className="text-blue-500 text-sm mt-2 inline-block" href="/projects">
-                  See projects
-                </a>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <h3 className="font-medium mb-1">{p.title}</h3>
+                    {p.company && <p className="text-xs text-gray-500 mb-2">{p.company}</p>}
+                    <p className="text-sm text-gray-600">{p.description}</p>
+                  </div>
+                  <a className="text-blue-500 text-sm whitespace-nowrap mt-1" href={p.link}>
+                    Link To Doc
+                  </a>
+                </div>
               </article>
             ))}
           </div>

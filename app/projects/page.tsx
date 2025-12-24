@@ -15,10 +15,11 @@ export default function Projects() {
             A selection of projects, experiments, and OSS I contribute to.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid space-y-3 gap-6">
             {PROJECTS.map((p) => (
               <article key={p.id} className="p-4 border rounded-lg">
                 <h2 className="font-medium mb-1">{p.title}</h2>
+                {p.company && <p className="text-xs text-gray-500 mb-2">{p.company}</p>}
                 <p className="text-sm text-gray-600 mb-3">{p.description}</p>
                 <div className="flex items-center justify-between">
                   <div className="text-xs text-gray-500">{p.tech?.join(" • ")}</div>
@@ -29,7 +30,7 @@ export default function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Repository
+                      Link To Doc
                     </a>
                   ) : (
                     <span className="text-xs text-gray-400">Private / internal</span>
