@@ -34,10 +34,10 @@ function escapeHtml(value: string) {
 function renderMarkdown(markdown: string) {
   const renderer = new marked.Renderer();
 
-  renderer.code = (code, infostring) => {
-    const codeText = typeof code === "string" ? code : code?.text || "";
-    const lang = (infostring || "").trim();
-    const languageClass = lang ? ` class="language-${escapeHtml(lang)}"` : "";
+  renderer.code = ({ text, lang }) => {
+    const codeText = text || "";
+    const language = (lang || "").trim();
+    const languageClass = language ? ` class="language-${escapeHtml(language)}"` : "";
     const encoded = encodeForAttribute(codeText);
 
     return [
@@ -48,7 +48,8 @@ function renderMarkdown(markdown: string) {
     ].join("");
   };
 
-  return marked.parse(markdown, { renderer });
+  const html = marked.parse(markdown, { renderer, async: false });
+  return typeof html === "string" ? html : "";
 }
 
 function getMarkdownFiles() {
