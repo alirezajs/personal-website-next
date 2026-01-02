@@ -24,3 +24,135 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.article-content h1,
+.article-content h2,
+.article-content h3 {
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.article-page {
+  font-family: "Merriweather", "Georgia", "Times New Roman", serif;
+  font-size: 1.125rem;
+  line-height: 1.9;
+}
+
+.article-page h1,
+.article-page h2,
+.article-page h3,
+.article-page h4 {
+  font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.article-content p {
+  margin: 0.75rem 0;
+}
+
+.article-content ul,
+.article-content ol {
+  margin: 0.75rem 0 0.75rem 1.25rem;
+}
+
+.article-content ul {
+  list-style: disc;
+}
+
+.article-content ol {
+  list-style: decimal;
+}
+
+.article-content a {
+  color: #3b82f6;
+}
+
+.article-content blockquote {
+  border-left: 3px solid #e5e7eb;
+  color: #6b7280;
+  margin: 1.25rem 0;
+  padding: 0.5rem 1rem;
+  font-style: italic;
+}
+
+.article-content pre {
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.article-content code {
+  background: #f1f5f9;
+  border-radius: 0.35rem;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.95em;
+}
+
+.article-content pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.article-content pre,
+.article-content code {
+  user-select: text;
+}
+
+.code-block {
+  position: relative;
+  margin: 1.5rem 0;
+  border-radius: 0.9rem;
+  border: 1px solid #e2e8f0;
+  background: #0f172a;
+  overflow: hidden;
+}
+
+.code-block pre {
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+}
+
+.code-block pre code {
+  color: #e2e8f0;
+  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.code-copy {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  border: 1px solid rgba(226, 232, 240, 0.4);
+  background: rgba(15, 23, 42, 0.8);
+  color: #e2e8f0;
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.code-copy:hover {
+  background: rgba(226, 232, 240, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .article-page {
+    color: #e2e8f0;
+  }
+
+  .article-content {
+    color: #e2e8f0;
+  }
+
+  .article-content a {
+    color: #93c5fd;
+  }
+
+  .article-content blockquote {
+    border-left-color: #334155;
+    color: #cbd5f5;
+  }
+}

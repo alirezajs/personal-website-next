@@ -9,9 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "and": "^0.0.3",
+    "gray-matter": "^4.0.3",
+    "marked": "^16.4.2",
     "next": "16.1.0",
+    "pull": "^2.1.1",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "to": "^0.2.9"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

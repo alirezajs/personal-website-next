@@ -1,11 +1,23 @@
+import Image from "next/image";
 import { LATEST } from "../lib/projects";
-import { LATEST_ESSAYS } from "../lib/essays";
+import { getLatestArticles } from "../lib/articles";
 
 export default function Home() {
+  const latestArticles = getLatestArticles();
+
   return (
     <main className="max-w-3xl mx-auto px-6 py-20">
       <section className="mb-8">
-        <h1 className="text-4xl font-bold mb-3">Alireza Varmaghani</h1>
+        <div className="flex items-center gap-4 mb-3">
+          <Image
+            className="h-16 w-16 rounded-full border border-gray-200 object-cover"
+            src="/images/owner.png"
+            alt="Alireza Varmaghani"
+            width={64}
+            height={64}
+          />
+          <h1 className="text-4xl font-bold">Alireza Varmaghani</h1>
+        </div>
         <p className="text-lg text-gray-600 mb-4">
           Frontend engineer, writer, and independent builder.
         </p>
@@ -42,14 +54,14 @@ export default function Home() {
         </section>
       )}
 
-      {LATEST_ESSAYS.length > 0 && (
+      {latestArticles.length > 0 && (
         <section>
-          <h2 className="text-2xl font-semibold mb-3">Latest Essays</h2>
+          <h2 className="text-2xl font-semibold mb-3">Latest Articles</h2>
           <ul className="list-disc list-inside mb-6">
-            {LATEST_ESSAYS.map((e) => (
-              <li key={e.slug}>
-                <a className="text-blue-500" href={`/blog/${e.slug}`}>
-                  {e.title}
+            {latestArticles.map((article) => (
+              <li key={article.slug}>
+                <a className="text-blue-500" href={`/blog/${article.slug}`}>
+                  {article.title}
                 </a>
               </li>
             ))}
@@ -57,7 +69,13 @@ export default function Home() {
 
           <div className="flex gap-4">
             <a className="text-sm text-gray-700 hover:text-blue-600" href="/blog">
-              Read all essays
+              Read all articles
+            </a>
+            <a
+              className="text-sm text-gray-700 hover:text-blue-600"
+              href="https://medium.com/@alireza.varmaghani"
+            >
+              Medium for extra courage
             </a>
             <a
               className="text-sm text-gray-700 hover:text-blue-600"

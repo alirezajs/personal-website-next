@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import { LATEST } from "../lib/projects";
-import { LATEST_ESSAYS } from "../lib/essays";
+import { getAllArticles } from "../lib/articles";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -51,6 +51,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const articles = getAllArticles();
+
   return (
     <html lang="en">
       <body
@@ -62,9 +64,9 @@ export default function RootLayout({
               Alireza
             </Link>
             <nav className="flex items-center gap-4 text-sm">
-              {LATEST_ESSAYS.length > 0 && (
+              {articles.length > 0 && (
                 <Link href="/blog" className="text-gray-700 dark:text-gray-300 hover:text-blue-600">
-                  Essays
+                  Articles
                 </Link>
               )}
               {LATEST.length > 0 && (
