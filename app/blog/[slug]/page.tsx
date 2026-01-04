@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getAllArticles, getArticleBySlug } from "../../../lib/articles";
-import CodeCopyClient from "../CodeCopyClient";
+import { getAllArticles, getArticleBySlug } from "../../../lib/content/articles";
+import { SITE } from "../../../constants/site";
+import { buildPageMetadata } from "../../../lib/seo";
+import CodeCopyClient from "../../components/CodeCopyClient";
+import Heading from "../../components/ui/Heading";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -20,38 +23,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {};
   }
 
-  const siteUrl = "https://alireza.dev";
-  const url = `${siteUrl}/blog/${article.slug}`;
-  const ogImage = article.coverImage || "/og-image.png";
-
-  return {
-    title: `${article.title} — Alireza Varmaghani`,
+  return buildPageMetadata({
+    title: `${article.title} — ${SITE.name}`,
     description: article.summary,
-    alternates: {
-      canonical: url,
-    },
+    path: `/blog/${article.slug}`,
+    image: article.coverImage,
+    type: "article",
     keywords: article.tags,
-    openGraph: {
-      type: "article",
-      title: article.title,
-      description: article.summary,
-      url,
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: article.title,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: article.title,
-      description: article.summary,
-      images: [ogImage],
-    },
-  };
+  });
 }
 
 export default async function ArticlePage({ params }: PageProps) {
@@ -71,12 +50,12 @@ export default async function ArticlePage({ params }: PageProps) {
     dateModified: article.date || undefined,
     author: {
       "@type": "Person",
-      name: "Alireza Varmaghani",
+      name: SITE.name,
     },
     image: article.coverImage
-      ? [`https://alireza.dev${article.coverImage}`]
+      ? [`${SITE.url}${article.coverImage}`]
       : undefined,
-    mainEntityOfPage: `https://alireza.dev/blog/${article.slug}`,
+    mainEntityOfPage: `${SITE.url}/blog/${article.slug}`,
   };
 
   return (
@@ -101,21 +80,23 @@ export default async function ArticlePage({ params }: PageProps) {
         <div className="flex items-center gap-3 mb-3">
           <Image
             className="h-10 w-10 rounded-full border border-gray-200 object-cover"
-            src="/images/owner.png"
-            alt="Alireza Varmaghani"
+            src={SITE.avatarImage}
+            alt={SITE.name}
             width={40}
             height={40}
           />
           <div>
-            <p className="text-sm text-gray-700">Alireza Varmaghani</p>
+            <p className="text-sm text-gray-700">{SITE.name}</p>
             {article.date && <p className="text-xs text-gray-500">{article.date}</p>}
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-2">{article.title}</h1>
+        <Heading as="h1" className="text-3xl font-bold mb-2">
+          {article.title}
+        </Heading>
         {article.summary && <p className="text-gray-600 mt-3">{article.summary}</p>}
         <a
           className="text-sm text-gray-700 hover:text-blue-600 mt-4 inline-block"
-          href="https://medium.com/@alireza.varmaghani"
+          href={SITE.mediumUrl}
         >
           Read on Medium for extra courage
         </a>

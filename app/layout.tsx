@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
-import { LATEST } from "../lib/projects";
-import { getAllArticles } from "../lib/articles";
+import { LATEST } from "../lib/content/projects";
+import { getAllArticles } from "../lib/content/articles";
+import { SITE } from "../constants/site";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,24 +18,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alireza Varmaghani — Frontend Engineer",
-  description: "Frontend engineer. Projects, writing, and experiments.",
-  metadataBase: new URL("https://alireza.dev"),
+  title: SITE.title,
+  description: SITE.description,
+  metadataBase: new URL(SITE.url),
   twitter: {
     card: "summary_large_image",
-    site: "@alirezajs",
+    site: SITE.twitterHandle,
   },
   openGraph: {
-    title: "Alireza Varmaghani — Frontend Engineer",
+    title: SITE.title,
     description: "Projects, writing, and experiments about frontend architecture and engineering.",
-    url: "https://alireza.dev",
-    siteName: "Alireza Varmaghani",
+    url: SITE.url,
+    siteName: SITE.name,
     images: [
       {
-        url: "https://alireza.dev/og-image.png",
+        url: `${SITE.url}${SITE.defaultOgImage}`,
         width: 1200,
         height: 630,
-        alt: "Alireza Varmaghani",
+        alt: SITE.name,
       },
     ],
     locale: "en_US",
@@ -52,54 +54,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const articles = getAllArticles();
+  const hasArticles = articles.length > 0;
+  const hasProjects = LATEST.length > 0;
 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <header className="border-b border-gray-200 dark:border-gray-800">
-          <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-            <Link href="/" className="font-semibold text-lg">
-              Alireza
-            </Link>
-            <nav className="flex items-center gap-4 text-sm">
-              {articles.length > 0 && (
-                <Link href="/blog" className="text-gray-700 dark:text-gray-300 hover:text-blue-600">
-                  Articles
-                </Link>
-              )}
-              {LATEST.length > 0 && (
-                <Link
-                  href="/projects"
-                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600"
-                >
-                  Projects
-                </Link>
-              )}
-              <Link href="/about" className="text-gray-700 dark:text-gray-300 hover:text-blue-600">
-                About
-              </Link>
-            </nav>
-          </div>
-        </header>
+        <Header hasArticles={hasArticles} hasProjects={hasProjects} />
 
         <main className="flex-1">{children}</main>
-        <footer className="mt-auto border-t border-gray-100 dark:border-gray-900">
-          <div className="max-w-5xl mx-auto px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
-            <div className="flex items-center justify-between">
-              <p>© {new Date().getFullYear()} Alireza Varmaghani — Built with Next.js</p>
-              <div className="flex gap-4">
-                <a href="/privacy" className="hover:text-gray-900 dark:hover:text-gray-200">
-                  Privacy
-                </a>
-                <a href="/imprint" className="hover:text-gray-900 dark:hover:text-gray-200">
-                  Imprint
-                </a>
-              </div>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </body>
     </html>
   );

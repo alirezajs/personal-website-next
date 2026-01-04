@@ -2,21 +2,22 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
-
-export type Article = {
-  slug: string;
-  title: string;
-  date: string;
-  summary?: string;
-  coverImage?: string;
-  tags?: string[];
-};
-
-type ArticleContent = Article & {
-  contentHtml: string;
-};
+import type { Article, ArticleContent } from "../../types/article";
 
 const articlesDirectory = path.join(process.cwd(), "content", "articles");
+
+function isHidden(value: unknown) {
+  if (value === true) {
+    return true;
+  }
+  if (value === false || value == null) {
+    return false;
+  }
+  if (typeof value === "string") {
+    return value.trim().toLowerCase() === "true";
+  }
+  return Boolean(value);
+}
 
 function encodeForAttribute(value: string) {
   return encodeURIComponent(value);
@@ -75,8 +76,10 @@ export function getAllArticles(): Article[] {
         summary: data.summary ? String(data.summary) : undefined,
         coverImage: data.coverImage ? String(data.coverImage) : undefined,
         tags: Array.isArray(data.tags) ? data.tags.map(String) : undefined,
+        hidden: isHidden(data.hidden),
       };
     })
+    .filter((article) => !article.hidden)
     .sort((a, b) => {
       const aTime = a.date ? new Date(a.date).getTime() : 0;
       const bTime = b.date ? new Date(b.date).getTime() : 0;
@@ -97,6 +100,11 @@ export function getArticleBySlug(slug: string): ArticleContent | null {
 
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
+  const hidden = isHidden(data.hidden);
+
+  if (hidden) {
+    return null;
+  }
 
   return {
     slug,
@@ -105,6 +113,7 @@ export function getArticleBySlug(slug: string): ArticleContent | null {
     summary: data.summary ? String(data.summary) : undefined,
     coverImage: data.coverImage ? String(data.coverImage) : undefined,
     tags: Array.isArray(data.tags) ? data.tags.map(String) : undefined,
+    hidden,
     contentHtml: renderMarkdown(content),
   };
 }

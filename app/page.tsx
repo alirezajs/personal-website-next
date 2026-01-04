@@ -1,22 +1,27 @@
 import Image from "next/image";
-import { LATEST } from "../lib/projects";
-import { getLatestArticles } from "../lib/articles";
+import { LATEST } from "../lib/content/projects";
+import { getLatestArticles } from "../lib/content/articles";
+import { SITE } from "../constants/site";
+import ProjectList from "./components/ProjectList";
+import ArticleList from "./components/ArticleList";
+import Heading from "./components/ui/Heading";
+import Section from "./components/ui/Section";
 
 export default function Home() {
   const latestArticles = getLatestArticles();
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-20">
-      <section className="mb-8">
+      <Section className="mb-8">
         <div className="flex items-center gap-4 mb-3">
           <Image
             className="h-16 w-16 rounded-full border border-gray-200 object-cover"
-            src="/images/owner.png"
-            alt="Alireza Varmaghani"
+            src={SITE.avatarImage}
+            alt={SITE.name}
             width={64}
             height={64}
           />
-          <h1 className="text-4xl font-bold">Alireza Varmaghani</h1>
+          <Heading as="h1">{SITE.name}</Heading>
         </div>
         <p className="text-lg text-gray-600 mb-4">
           Frontend engineer, writer, and independent builder.
@@ -30,42 +35,25 @@ export default function Home() {
           </a>
           .
         </p>
-      </section>
+      </Section>
 
       {LATEST.length > 0 && (
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-4">Latest Projects</h2>
-          <div className="grid space-y-3 gap-4">
-            {LATEST.map((p) => (
-              <article key={p.id} className="p-3 border rounded-lg">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <h3 className="font-medium mb-1">{p.title}</h3>
-                    {p.company && <p className="text-xs text-gray-500 mb-2">{p.company}</p>}
-                    <p className="text-sm text-gray-600">{p.description}</p>
-                  </div>
-                  <a className="text-blue-500 text-sm whitespace-nowrap mt-1" href={p.link}>
-                    Link To Doc
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
+        <Section className="mb-10">
+          <ProjectList
+            projects={LATEST}
+            title="Latest Projects"
+            titleClassName="text-2xl font-semibold mb-4"
+          />
+        </Section>
       )}
 
       {latestArticles.length > 0 && (
-        <section>
-          <h2 className="text-2xl font-semibold mb-3">Latest Articles</h2>
-          <ul className="list-disc list-inside mb-6">
-            {latestArticles.map((article) => (
-              <li key={article.slug}>
-                <a className="text-blue-500" href={`/blog/${article.slug}`}>
-                  {article.title}
-                </a>
-              </li>
-            ))}
-          </ul>
+        <Section>
+          <ArticleList
+            articles={latestArticles}
+            title="Latest Articles"
+            titleClassName="text-2xl font-semibold mb-3"
+          />
 
           <div className="flex gap-4">
             <a className="text-sm text-gray-700 hover:text-blue-600" href="/blog">
@@ -73,7 +61,7 @@ export default function Home() {
             </a>
             <a
               className="text-sm text-gray-700 hover:text-blue-600"
-              href="https://medium.com/@alireza.varmaghani"
+              href={SITE.mediumUrl}
             >
               Medium for extra courage
             </a>
@@ -84,7 +72,7 @@ export default function Home() {
               GitHub
             </a>
           </div>
-        </section>
+        </Section>
       )}
     </main>
   );

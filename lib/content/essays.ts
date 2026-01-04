@@ -1,7 +1,4 @@
-export type Essay = {
-  slug: string;
-  title: string;
-};
+import type { Essay } from "../../types/essay";
 
 export const ESSAYS: Essay[] = [];
 
