@@ -1,5 +1,7 @@
+// Central list of projects displayed across the site.
 import type { Project } from "../../types/project";
 
+// Full list of projects displayed on the site.
 export const PROJECTS: Project[] = [
   {
     id: "ing-business-account",
@@ -48,4 +50,5 @@ export const PROJECTS: Project[] = [
   },
 ];
 
+// Latest projects shown on the home page.
 export const LATEST = PROJECTS.slice(0, 3);

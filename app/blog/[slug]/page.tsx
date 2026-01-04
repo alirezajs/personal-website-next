@@ -6,6 +6,7 @@ import { SITE } from "../../../constants/site";
 import { buildPageMetadata } from "../../../lib/seo";
 import CodeCopyClient from "../../components/CodeCopyClient";
 import Heading from "../../components/ui/Heading";
+import Page from "../../components/ui/Page";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -59,7 +60,7 @@ export default async function ArticlePage({ params }: PageProps) {
   };
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-20 article-page">
+    <Page className="article-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -122,12 +123,12 @@ export default async function ArticlePage({ params }: PageProps) {
         <div className="mt-4">
           <a
             className="text-sm text-gray-700 hover:text-blue-600"
-            href="https://medium.com/@alireza.varmaghani/react-performance-prefer-component-composition-over-memoization-1b8ad4d12464"
+            href={SITE.mediumArticleUrls.reactPerformance}
           >
             Clap or comment on Medium
           </a>
         </div>
       </footer>
-    </main>
+    </Page>
   );
 }

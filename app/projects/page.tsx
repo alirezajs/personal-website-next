@@ -1,14 +1,15 @@
 import ProjectList from "../components/ProjectList";
+import Page from "../components/ui/Page";
 import { PROJECTS } from "../../lib/content/projects";
 
 export default function Projects() {
   return (
-    <main className="max-w-5xl mx-auto px-6 py-20">
+    <Page size="wide">
       <ProjectList
         projects={PROJECTS}
         title="Projects"
         description="A selection of projects, experiments, and OSS I contribute to."
       />
-    </main>
+    </Page>
   );
 }

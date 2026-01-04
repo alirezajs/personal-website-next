@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { SITE } from "../constants/site";
 
+// Builds consistent metadata for pages (canonical URL, OpenGraph, Twitter).
+
 type PageMetadataOptions = {
   title: string;
   description?: string;
@@ -8,8 +10,12 @@ type PageMetadataOptions = {
   image?: string;
   type?: "website" | "article";
   keywords?: string[];
+  twitterCard?: "summary" | "summary_large_image";
+  twitterSite?: string;
+  siteName?: string;
 };
 
+// Resolves a path to an absolute site URL.
 function resolveUrl(path?: string) {
   if (!path) {
     return SITE.url;
@@ -20,6 +26,7 @@ function resolveUrl(path?: string) {
   return `${SITE.url}${path}`;
 }
 
+// Resolves an image path to an absolute OpenGraph URL.
 function resolveImage(image?: string) {
   const value = image || SITE.defaultOgImage;
   if (value.startsWith("http")) {
@@ -28,6 +35,7 @@ function resolveImage(image?: string) {
   return `${SITE.url}${value}`;
 }
 
+// Builds a Metadata object for Next.js pages.
 export function buildPageMetadata({
   title,
   description,
@@ -35,6 +43,9 @@ export function buildPageMetadata({
   image,
   type = "website",
   keywords,
+  twitterCard = "summary_large_image",
+  twitterSite = SITE.twitterHandle,
+  siteName = SITE.name,
 }: PageMetadataOptions): Metadata {
   const url = resolveUrl(path);
   const ogImage = resolveImage(image);
@@ -51,6 +62,7 @@ export function buildPageMetadata({
       title,
       description,
       url,
+      siteName,
       images: [
         {
           url: ogImage,
@@ -61,7 +73,8 @@ export function buildPageMetadata({
       ],
     },
     twitter: {
-      card: "summary_large_image",
+      card: twitterCard,
+      site: twitterSite,
       title,
       description,
       images: [ogImage],

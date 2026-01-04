@@ -5,13 +5,14 @@ import { SITE } from "../constants/site";
 import ProjectList from "./components/ProjectList";
 import ArticleList from "./components/ArticleList";
 import Heading from "./components/ui/Heading";
+import Page from "./components/ui/Page";
 import Section from "./components/ui/Section";
 
 export default function Home() {
   const latestArticles = getLatestArticles();
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-20">
+    <Page>
       <Section className="mb-8">
         <div className="flex items-center gap-4 mb-3">
           <Image
@@ -67,13 +68,13 @@ export default function Home() {
             </a>
             <a
               className="text-sm text-gray-700 hover:text-blue-600"
-              href="https://github.com/alirezajs"
+              href={SITE.githubUrl}
             >
               GitHub
             </a>
           </div>
         </Section>
       )}
-    </main>
+    </Page>
   );
 }

@@ -1,3 +1,4 @@
+// Copies text to the clipboard using the modern API with a textarea fallback.
 export function copyToClipboard(text: string) {
   if (navigator.clipboard?.writeText) {
     return navigator.clipboard.writeText(text);

@@ -1,9 +1,10 @@
 import { SITE } from "../../constants/site";
 import Heading from "../components/ui/Heading";
+import Page from "../components/ui/Page";
 
 export default function Imprint() {
   return (
-    <main className="max-w-3xl mx-auto px-6 py-20">
+    <Page>
       <Heading as="h1" className="text-3xl font-bold mb-4">
         Imprint (Impressum)
       </Heading>
@@ -33,6 +34,6 @@ export default function Imprint() {
       <p className="text-gray-600 mb-4">{SITE.name}</p>
 
       <p className="text-sm text-gray-500">Last updated: {new Date().toLocaleDateString()}</p>
-    </main>
+    </Page>
   );
 }

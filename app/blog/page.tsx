@@ -2,11 +2,13 @@ import { getAllArticles } from "../../lib/content/articles";
 import { SITE } from "../../constants/site";
 import { buildPageMetadata } from "../../lib/seo";
 import ArticleList from "../components/ArticleList";
+import Page from "../components/ui/Page";
 
 export const metadata = buildPageMetadata({
   title: `Articles — ${SITE.name}`,
   description: "Notes about frontend architecture, product thinking, and engineering.",
   path: "/blog",
+  twitterCard: "summary",
 });
 
 export default function Blog() {
@@ -28,7 +30,7 @@ export default function Blog() {
   };
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-20">
+    <Page>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleListJsonLd) }}
@@ -44,6 +46,6 @@ export default function Blog() {
           Read on Medium for extra courage
         </a>
       </div>
-    </main>
+    </Page>
   );
 }

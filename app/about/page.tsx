@@ -1,9 +1,10 @@
 import { SITE } from "../../constants/site";
 import Heading from "../components/ui/Heading";
+import Page from "../components/ui/Page";
 
 export default function About() {
   return (
-    <main className="max-w-3xl mx-auto px-6 py-20">
+    <Page>
       <Heading as="h1" className="text-3xl font-bold mb-4">
         About
       </Heading>
@@ -29,11 +30,11 @@ export default function About() {
       </Heading>
       <p className="mb-2">
         You can find me on{" "}
-        <a className="text-blue-500" href="https://github.com/alirezajs">
+        <a className="text-blue-500" href={SITE.githubUrl}>
           GitHub
         </a>{" "}
         and{" "}
-        <a className="text-blue-500" href="https://www.linkedin.com/in/alireza-varmaghani/">
+        <a className="text-blue-500" href={SITE.linkedinUrl}>
           LinkedIn
         </a>
         . I also write on{" "}
@@ -42,6 +43,6 @@ export default function About() {
         </a>
         .
       </p>
-    </main>
+    </Page>
   );
 }
